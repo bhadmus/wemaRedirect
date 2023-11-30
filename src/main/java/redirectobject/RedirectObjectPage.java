@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -47,13 +48,24 @@ public class RedirectObjectPage {
         }
     }
 
-    public void insertEmail(){
+    public void insertText(String textField, String text){
         wait.until(ExpectedConditions.
                 presenceOfElementLocated(
-                        By.cssSelector("#email")));
-        driver.findElement(By.cssSelector("#email")).sendKeys("wemabit2023@yopmail.com");
+                        By.cssSelector(textField)));
+        driver.findElement(By.cssSelector(textField)).sendKeys(text);
     }
 
+    public void joinMailingList(){
+        wait.until(ExpectedConditions.
+                presenceOfElementLocated(
+                        By.cssSelector(".home-button")));
+        driver.findElement(By.cssSelector(".home-button")).click();
+    }
+
+    public void selectJava(){
+        Select select = new Select(driver.findElement(By.cssSelector("select")));
+        select.selectByValue("Java");
+    }
     public void tearDown(){
         driver.quit();
     }
@@ -63,7 +75,10 @@ public class RedirectObjectPage {
         rdr.setUp();
         rdr.scrollDownToElementLink();
         rdr.changeTab();
-        rdr.insertEmail();
+        rdr.insertText("#email","wemabit2023@yopmail.com");
+        rdr.joinMailingList();
+        rdr.insertText("#fields_name","Esther Uche Joseph");
+        rdr.selectJava();
         rdr.tearDown();
     }
 }
