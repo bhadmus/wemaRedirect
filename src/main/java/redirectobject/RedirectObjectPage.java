@@ -31,9 +31,9 @@ public class RedirectObjectPage {
     public void scrollDownToElementLink(){
         wait.until(ExpectedConditions.
                 presenceOfElementLocated(
-                        By.cssSelector("a[href='http://elementalselenium.com/']")));
-        WebElement redirectLink = driver.findElement(By.cssSelector("a[href='http://elementalselenium.com/']"));
-        js.executeScript("arguments[0].scrollIntoView(true)", redirectLink);
+                        By.cssSelector(Selectors.seleniumRedirect)));
+        WebElement redirectLink = driver.findElement(By.cssSelector(Selectors.seleniumRedirect));
+        js.executeScript(Selectors.scrollInto, redirectLink);
         redirectLink.click();
 
     }
@@ -58,27 +58,15 @@ public class RedirectObjectPage {
     public void joinMailingList(){
         wait.until(ExpectedConditions.
                 presenceOfElementLocated(
-                        By.cssSelector(".home-button")));
-        driver.findElement(By.cssSelector(".home-button")).click();
+                        By.cssSelector(Selectors.home)));
+        driver.findElement(By.cssSelector(Selectors.home)).click();
     }
 
     public void selectJava(){
-        Select select = new Select(driver.findElement(By.cssSelector("select")));
-        select.selectByValue("Java");
+        Select select = new Select(driver.findElement(By.cssSelector(Selectors.selectField)));
+        select.selectByValue(Selectors.selectInput);
     }
     public void tearDown(){
         driver.quit();
-    }
-
-    public static void main(String [] args){
-        RedirectObjectPage rdr = new RedirectObjectPage();
-        rdr.setUp();
-        rdr.scrollDownToElementLink();
-        rdr.changeTab();
-        rdr.insertText("#email","wemabit2023@yopmail.com");
-        rdr.joinMailingList();
-        rdr.insertText("#fields_name","Esther Uche Joseph");
-        rdr.selectJava();
-        rdr.tearDown();
     }
 }
