@@ -58,27 +58,16 @@ public class RedirectObjectPage {
     public void joinMailingList(){
         wait.until(ExpectedConditions.
                 presenceOfElementLocated(
-                        By.cssSelector(".home-button")));
-        driver.findElement(By.cssSelector(".home-button")).click();
+                        By.cssSelector(Selectors.joinEmailButton)));
+        driver.findElement(By.cssSelector(Selectors.joinEmailButton)).click();
     }
 
     public void selectJava(){
-        Select select = new Select(driver.findElement(By.cssSelector("select")));
-        select.selectByValue("Java");
+        Select select = new Select(driver.findElement(By.cssSelector(Selectors.selectLang)));
+        select.selectByValue(Selectors.selectOptions);
     }
     public void tearDown(){
         driver.quit();
     }
 
-    public static void main(String [] args){
-        RedirectObjectPage rdr = new RedirectObjectPage();
-        rdr.setUp();
-        rdr.scrollDownToElementLink();
-        rdr.changeTab();
-        rdr.insertText("#email","wemabit2023@yopmail.com");
-        rdr.joinMailingList();
-        rdr.insertText("#fields_name","Esther Uche Joseph");
-        rdr.selectJava();
-        rdr.tearDown();
-    }
 }
